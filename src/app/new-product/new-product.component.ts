@@ -23,7 +23,7 @@ export class NewProductComponent {
     description: ['', Validators.required],
     categoryId: [null, Validators.required],
     images: this.fb.control(
-  ['https://placehold.co/600x400'],
+  [''],
   Validators.required
 ) 
 })
