@@ -16,10 +16,27 @@
     <textarea formControlName="description" id="description"   name="description" required></textarea>
   </div>
 
-  <div>
-  <label for="image">Image URL:</label>
-  <input formControlName="images" type="text" id="image" name="image" required>
-</div>
+ <div formArrayName="images">
+      @for(imgCtrl of images.controls; track imgCtrl; let i = $index) {
+        <div>
+          <input type="text" [formControlName]="i" placeholder="add image">
+        
+          @if(images.length > 1) {
+            <button type="button" (click)="removeImageField(i)">Remove field</button>
+          }
+
+        @if(imgCtrl.invalid && imgCtrl.touched) {
+          <div style="color: red">
+              Please enter a valid URL
+          </div>
+        }
+        </div>
+      }
+<button type="button" (click)="addImageField()">Add image</button>
+  
+ </div>
+
+ 
 
 
   <div>

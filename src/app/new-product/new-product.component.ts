@@ -1,7 +1,6 @@
 import { ProductsService } from './../services/api/products.service';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
 
 
@@ -13,26 +12,55 @@ import { inject } from '@angular/core';
   styleUrl: './new-product.component.scss'
 })
 export class NewProductComponent {
-  productForm!: FormGroup
+
+  fb = inject(FormBuilder)
   productService = inject(ProductsService)
 
-   constructor(private fb: FormBuilder) {
-     this.productForm = this.fb.group({
+  productForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
     price: [0, Validators.required],
     description: ['', Validators.required],
-    categoryId: [null, Validators.required],
-    images: this.fb.control(
-  [''],
-  Validators.required
+    categoryId: [0, Validators.required],
+    images: this.fb.array([
+      this.fb.control('', [
+        Validators.required, 
+        Validators.pattern(/^https?:\/\/.+$/)
+
+      ])
+    ]
 ) 
 })
 
-   }
+get images(): FormArray {
+  return this.productForm.get('images') as FormArray
+}
+
+addImageField(): void {
+  this.images.push(
+    this.fb.control('', [
+      Validators.required, 
+      Validators.pattern(/^https?:\/\/.+$/)
+    ])
+  )
+}
+
+removeImageField(index: number): void {
+  this.images.removeAt(index)
+}
+
+   
+onAdd() {
+
+  const formValue = this.productForm.value;
+
+  const payload = {
+    ...formValue,
+    categoryId: Number(formValue.categoryId), 
+    images: formValue.images.map((img: string) => img.trim()) 
+  };
 
 
-   onAdd() {
-    this.productService.addProduct(this.productForm.value).subscribe((res: any) => {
+    this.productService.addProduct(payload).subscribe((res: any) => {
       console.log(res)
     })
    }

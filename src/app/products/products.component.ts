@@ -1,14 +1,17 @@
+import { ProductPageComponent } from './../product-page/product-page.component';
 import { ProductsService } from './../services/api/products.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../services/api/ model';
 import { ProductDetailsComponent } from "../product-details/product-details.component";
 import { NgFor } from '@angular/common';
+import { RouterLink } from "@angular/router";
+
 
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductDetailsComponent, NgFor],
+  imports: [ProductDetailsComponent, NgFor, RouterLink, ProductPageComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
