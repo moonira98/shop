@@ -60,7 +60,7 @@ onAdd() {
   };
 
 
-    this.productService.addProduct(payload).subscribe((res: any) => {
+    this.productService.addProduct(payload).subscribe((res:  any) => {
       console.log(res)
     })
    }
