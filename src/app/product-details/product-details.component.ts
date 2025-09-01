@@ -1,8 +1,8 @@
-
 import { Component, Input } from '@angular/core';
 import { Product } from '../services/api/ model';
 import { RouterLink } from "@angular/router";
 import { ProductPageComponent } from '../product-page/product-page.component';
+
 
 
 @Component({
@@ -15,4 +15,7 @@ import { ProductPageComponent } from '../product-page/product-page.component';
 export class ProductDetailsComponent {
   @Input()
   product!: Product
-}
+
+   
+  }
+

@@ -1,1 +1,13 @@
-<p>product-page works!</p>
+{{productId}}
+
+
+<div class="product-card" >
+  <img class="product-image" [src]="product.images"  >
+  <div class="product-details">
+    <h3  class="product-title">{{product.title}}</h3>
+    <p class="product-price">{{product.price}}</p>
+    <p class="product-description">{{product.description}}</p>
+    <p class="product-category">{{product.slug}}</p>
+     <p class="product-category" routerLink="/products" style="color: red;">Back</p>
+  </div>
+</div>

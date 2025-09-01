@@ -20,4 +20,8 @@ export class ProductsService {
   addProduct(payload: any): Observable<any> {
     return this.http.post<any>('https://api.escuelajs.co/api/v1/products/', payload)
   }
+
+  getProductById(id: any): Observable<Product[]> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`)
+  }
 }
